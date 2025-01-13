@@ -9,25 +9,25 @@ namespace LoadBoardApp.ContentFinders
     public class LoadDetailsContentFinder : IContentFinder
     {
         private readonly IUmbracoContextAccessor _contextAccessor;
-        private readonly IUmbracoContext _umbracoContext;
         public LoadDetailsContentFinder(IUmbracoContextAccessor contextAccessor)
         {
             _contextAccessor = contextAccessor;
-            _umbracoContext = _contextAccessor.GetRequiredUmbracoContext();
         }
         Task<bool> IContentFinder.TryFindContent(IPublishedRequestBuilder request)
         {
-            var home = _umbracoContext.Content?.GetAtRoot().FirstOrDefault();
-            //var loads = home.Children.OfType<Load>();
+            if (!_contextAccessor.TryGetUmbracoContext(out var umbracoContext))
+            {
+                return Task.FromResult(false);
+            }
+            var content = umbracoContext.Content?.GetAtRoot().FirstOrDefault();
 
-
-            //if (content is null)
-            //{
-            //    return Task.FromResult(false);
-            //}
+            if (content is null)
+            {
+                return Task.FromResult(false);
+            }
 
             request.IgnorePublishedContentCollisions();
-            //request.SetPublishedContent(content);
+            request.SetPublishedContent(content);
             return Task.FromResult(true);
         }
     }

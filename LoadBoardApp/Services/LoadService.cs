@@ -27,12 +27,10 @@ namespace LoadBoardApp.Services
       public int GetTotalLoadsCount()
       {
         var home = _umbracoContext.Content?.GetAtRoot().FirstOrDefault();
-
         if (home == null) return 0;
 
         return home.Children.OfType<Load>().Count();
       }
-
 
     }
 }
