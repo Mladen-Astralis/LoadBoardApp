@@ -27,7 +27,8 @@
                     <td>@load.Miles</td>
                     <td>@load.Broker</td>
                     <td>@load.Contact</td>
-                        <td><a href="/load/details/@load.Id" class="btn btn-outline-primary btn-sm">View More</a></td>
+                    <td><a href="/load/details/@load.Id" class="btn btn-outline-primary btn-sm">View More</a></td>
+                    @* data-popup-open="popup" *@
                     @{ numIndex++; }
                 </tr>
                 }
@@ -67,4 +68,7 @@
             </ul>
         </div>
     </div>
+
+    @Html.Partial("/Views/Partials/PopUp/_Loads.cshtml")
+
 </div>
