@@ -17,7 +17,7 @@ namespace LoadBoardApp.Services
             _umbracoContext = _contextAccessor.GetRequiredUmbracoContext();
         }
 
-      public IReadOnlyList<LoadViewModel> GetLoads(int currentPage, int totalPages, int itemsPerPage)
+      public IReadOnlyList<LoadViewModel> GetLoads(int currentPage, int itemsPerPage)
       {
         var home = _umbracoContext.Content?.GetAtRoot().FirstOrDefault();
         var loads = home.Children.OfType<Load>().Skip(itemsPerPage * (currentPage - 1)).Take(itemsPerPage);

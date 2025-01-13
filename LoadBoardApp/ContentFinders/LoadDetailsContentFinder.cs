@@ -17,9 +17,7 @@ namespace LoadBoardApp.ContentFinders
         }
         Task<bool> IContentFinder.TryFindContent(IPublishedRequestBuilder request)
         {
-            var content = _umbracoContext.Content.GetAtRoot();
-
-            //var home = _umbracoContext.Content?.GetAtRoot()?.FirstOrDefault();
+            var home = _umbracoContext.Content?.GetAtRoot().FirstOrDefault();
             //var loads = home.Children.OfType<Load>();
 
 

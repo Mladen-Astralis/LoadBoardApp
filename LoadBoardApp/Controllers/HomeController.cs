@@ -35,7 +35,7 @@ namespace LoadBoardApp.Controllers
 
             var model = new LoadsListingViewModel
             {
-                Items = _loadService.GetLoads(currentPage, totalPages, itemsPerPage),
+                Items = _loadService.GetLoads(currentPage, itemsPerPage),
                 CurrentPage = currentPage,
                 TotalPages = totalPages,
                 ItemsPerPage = itemsPerPage
