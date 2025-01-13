@@ -1,0 +1,6 @@
+﻿@inherits UmbracoViewPage<Home>
+@{
+	Layout = "Master.cshtml";
+}
+
+@await Component.InvokeAsync("Load", new { currentPage = 1, itemsPerPage = @Model.LoadsNumber })
