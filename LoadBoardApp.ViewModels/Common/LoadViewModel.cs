@@ -13,7 +13,6 @@ namespace LoadBoardApp.ViewModels.Common
             Rate = model.Rate;
             Miles = model.Miles;
             Broker = model.Broker;
-            Name = model.LoadName;
             Contact = model.Contact;
             Commodity = model.Commodity;
             Latitude = model.Latitude;
@@ -27,7 +26,6 @@ namespace LoadBoardApp.ViewModels.Common
         public string Rate { get; }
         public string Miles { get; }
         public string Broker { get; }
-        public string Name { get; }
         public string Contact { get; }
         public string Commodity { get; }
         public string Latitude { get; }

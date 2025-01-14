@@ -98,14 +98,6 @@ namespace LoadBoardApp.PublishedContentModels.Models
 		public virtual string Latitude => this.Value<string>(_publishedValueFallback, "latitude");
 
 		///<summary>
-		/// Name
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.5.2+3431f76")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("loadName")]
-		public virtual string LoadName => this.Value<string>(_publishedValueFallback, "loadName");
-
-		///<summary>
 		/// Longitude
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.5.2+3431f76")]
