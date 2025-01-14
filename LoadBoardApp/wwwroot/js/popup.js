@@ -20,5 +20,4 @@
             $("#render-popup").empty();
         });
     });
-
 });

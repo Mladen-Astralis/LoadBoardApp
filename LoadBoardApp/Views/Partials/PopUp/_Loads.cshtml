@@ -15,6 +15,22 @@
             <li>Commodity: @Model.Commodity</li>
             <li>Latitude - Longitude: @Model.Latitude - @Model.Longitude</li>
           </ul>
+
+          <div id="map"></div>
+
         </div>
     </div>
 </div>
+
+<script>
+    // Initialize the map
+    var map = L.map('map').setView([@Model.Latitude, @Model.Longitude], 15);
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Add a marker
+    var marker = L.marker([@Model.Latitude, @Model.Longitude]).addTo(map);
+</script>
