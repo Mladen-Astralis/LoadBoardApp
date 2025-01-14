@@ -41,7 +41,7 @@ namespace LoadBoardApp.Controllers
                 TotalPages = totalPages,
                 ItemsPerPage = itemsPerPage
             };
-            return PartialView("Items/_LoadsPagination", model);
+            return PartialView("Items/_LoadPagination", model);
         }
 
         [HttpGet]
