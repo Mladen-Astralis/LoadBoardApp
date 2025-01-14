@@ -9,7 +9,6 @@
             success: function (response) {
                 $("#render-popup").append(response);
                 $('[data-popup="popup"]').fadeIn(350);
-
             }
         });
     });
