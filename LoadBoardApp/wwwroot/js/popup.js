@@ -1,16 +1,24 @@
-﻿$(function () {
-    // Open
-    $('[data-popup-open]').on('click', function (e) {
-        var targeted_popup_class = $(this).attr('data-popup-open');
-        $('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
+﻿$(document).ready(function () {
+    $('body').delegate('[data-popup-open]', "click", function (e) {
         e.preventDefault();
+        var href = $(this).attr("href");
+        var itemId = href.split("/");
+        $.ajax({
+            url: '/umbraco/surface/home/getpopupitem?loadId=' + itemId[3],
+            type: "GET",
+            success: function (response) {
+                $("#render-popup").append(response);
+                $('[data-popup="popup"]').fadeIn(350);
+
+            }
+        });
     });
 
-    // Close
-    $('[data-popup-close]').on('click', function (e) {
-        var targeted_popup_class = $(this).attr('data-popup-close');
-        $('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
+    $('body').delegate('[data-popup-close]', 'click', function (e) {
         e.preventDefault();
+        $('[data-popup="popup"]').fadeOut(350, function () {
+            $("#render-popup").empty();
+        });
     });
 
 });

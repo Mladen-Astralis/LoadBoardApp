@@ -6,7 +6,7 @@
         type: "GET",
         success: function (response) {
             $("#load-container").empty();
-            $("#load-container").html(response);
+            $("#load-container").append(response);
         }
     });
 });

@@ -1,28 +1,20 @@
-﻿@* @inherits UmbracoViewPage<LoadViewModel> *@
+﻿@inherits UmbracoViewPage<LoadViewModel>
 
 <div class="popup" data-popup="popup">
     <div class="popup-inner">
         <div class="popup-close" data-popup-close="popup">x</div>
         <div class="popup-content">
-            <h2>Test</h2>
-            <h2>Test</h2>
-            <h2>Test</h2>
-            <h2>Test</h2>
-            <h2>Test</h2>
-            <h2>Test</h2>
-            <h2>Test</h2>
-            <h2>Test</h2>
-            <h2>Test</h2>
-            <h2>Test</h2>
-            <h2>Test</h2>
-            <h2>Test</h2>
-            <h2>Test</h2>
-            <h2>Test</h2>
-            <h2>Test</h2>
-            <h2>Test</h2>
-            <h2>Test</h2>
-            <h2>Test</h2>
-            <h2>Test</h2>
+          <ul>
+            <li>Lane: @Model.City</li>
+            <li>Lane: @Model.Lane</li>
+            <li>Rate: @Model.Rate</li>
+            <li>Miles: @Model.Miles</li>
+            <li>Broker: @Model.Broker</li>
+            <li>Contact: @Model.Contact</li>
+            <li>Name: @Model.Name</li>
+            <li>Commodity: @Model.Commodity</li>
+            <li>Latitude - Longitude: @Model.Latitude - @Model.Longitude</li>
+          </ul>
         </div>
     </div>
 </div>

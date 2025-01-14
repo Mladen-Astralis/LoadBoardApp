@@ -58,6 +58,14 @@ namespace LoadBoardApp.PublishedContentModels.Models
 		public virtual string Broker => this.Value<string>(_publishedValueFallback, "broker");
 
 		///<summary>
+		/// City
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.5.2+3431f76")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("city")]
+		public virtual string City => this.Value<string>(_publishedValueFallback, "city");
+
+		///<summary>
 		/// Commodity
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.5.2+3431f76")]

@@ -43,7 +43,13 @@ namespace LoadBoardApp.Controllers
             return PartialView("Items/_LoadsPagination", model);
         }
 
-        
-      
+        [HttpGet]
+        [IgnoreAntiforgeryToken]
+        public IActionResult GetPopUpItem(int loadId)
+        {
+            var item = _loadService.GetPopUpItemById(loadId);
+            return PartialView("PopUp/_Loads", item);
+        }
+
     }
 }

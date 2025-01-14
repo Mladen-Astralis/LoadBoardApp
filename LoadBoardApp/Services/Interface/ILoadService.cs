@@ -6,5 +6,6 @@ namespace LoadBoardApp.Services.Interface
     {
         IReadOnlyList<LoadViewModel> GetLoads(int curentPage, int itemsPerPage);
         int GetTotalLoadsCount();
+        LoadViewModel GetPopUpItemById(int loadId);
     }
 }

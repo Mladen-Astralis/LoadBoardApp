@@ -1,11 +1,12 @@
 ﻿@model LoadsListingViewModel
 
-<div class="container">
+<div class="container mt-5 mb-5">
     <div id="load-container">
         <table class="table table-hover">
             <thead class="table-dark">
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">City</th>
                     <th scope="col">Lane</th>
                     <th scope="col">Rate</th>
                     <th scope="col">Miles</th>
@@ -22,13 +23,13 @@
                 {
                 <tr>
                     <th scope="row">@numIndex</th>
+                    <td>@load.City</td>
                     <td>@load.Lane</td>
                     <td>@load.Rate</td>
                     <td>@load.Miles</td>
                     <td>@load.Broker</td>
                     <td>@load.Contact</td>
-                    <td><a href="/load/details/@load.Id" class="btn btn-outline-primary btn-sm">View More</a></td>
-                    @* data-popup-open="popup" *@
+                    <td><a href="/load/details/@load.Id" data-popup-open="popup" class="btn btn-outline-primary btn-sm">View More</a></td>
                     @{ numIndex++; }
                 </tr>
                 }
@@ -69,6 +70,5 @@
         </div>
     </div>
 
-    @Html.Partial("/Views/Partials/PopUp/_Loads.cshtml")
-
+    <div id="render-popup"></div>
 </div>

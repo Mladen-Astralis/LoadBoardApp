@@ -36,7 +36,7 @@ namespace LoadBoardApp.ContentFinders
             }
 
             request.IgnorePublishedContentCollisions();
-            request.SetPublishedContent(content);
+            request.SetPublishedContent(home);
             return Task.FromResult(true);
         }
     }

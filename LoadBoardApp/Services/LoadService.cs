@@ -3,6 +3,7 @@ using LoadBoardApp.Services.Interface;
 using LoadBoardApp.ViewModels.Common;
 using LoadBoardApp.ViewModels.Extensions;
 using Umbraco.Cms.Core.Web;
+using Umbraco.Cms.Web.Common.UmbracoContext;
 
 namespace LoadBoardApp.Services
 {
@@ -30,6 +31,13 @@ namespace LoadBoardApp.Services
         if (home == null) return 0;
 
         return home.Children.OfType<Load>().Count();
+      }
+
+      public LoadViewModel GetPopUpItemById(int loadId)
+      {
+            var content = _umbracoContext.Content?.GetById(loadId);
+            var item = (Load)content;
+            return new LoadViewModel(item);
       }
 
     }
