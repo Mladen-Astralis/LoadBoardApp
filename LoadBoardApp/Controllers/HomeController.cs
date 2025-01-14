@@ -28,15 +28,16 @@ namespace LoadBoardApp.Controllers
 
         [HttpGet]
         [IgnoreAntiforgeryToken]
-        public IActionResult GetPaginatedLoads(int currentPage, int itemsPerPage)
+        public IActionResult GetPaginatedLoads(int page)
         {
+            var itemsPerPage = _loadService.ItemsPerPage();
             var totalItems = _loadService.GetTotalLoadsCount();
             var totalPages = (int)Math.Ceiling((double)totalItems / itemsPerPage);
 
             var model = new LoadsListingViewModel
             {
-                Items = _loadService.GetLoads(currentPage, itemsPerPage),
-                CurrentPage = currentPage,
+                Items = _loadService.GetLoads(page, itemsPerPage),
+                CurrentPage = page,
                 TotalPages = totalPages,
                 ItemsPerPage = itemsPerPage
             };
