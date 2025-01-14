@@ -48,7 +48,7 @@ namespace LoadBoardApp.Controllers
         public IActionResult GetPopUpItem(int loadId)
         {
             var item = _loadService.GetPopUpItemById(loadId);
-            return PartialView("PopUp/_LoadsView", item);
+            return PartialView("PopUp/_PopUpView", item);
         }
 
     }
