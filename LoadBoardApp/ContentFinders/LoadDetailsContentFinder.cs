@@ -19,7 +19,16 @@ namespace LoadBoardApp.ContentFinders
             {
                 return Task.FromResult(false);
             }
-            var content = umbracoContext.Content?.GetAtRoot().FirstOrDefault();
+
+            var pathSegments = request.Uri.AbsolutePath.Trim('/').Split('/');
+
+            if (pathSegments.Length < 3 || !int.TryParse(pathSegments[2], out var contentId))
+            {
+                return Task.FromResult(false);
+            }
+
+            var home = umbracoContext.Content?.GetAtRoot().FirstOrDefault();
+            var content = umbracoContext.Content?.GetById(contentId);
 
             if (content is null)
             {
