@@ -7,6 +7,7 @@ namespace LoadBoardApp.ViewModels.Common
         public LoadViewModel(Load model)
         {
             Id = model.Id;
+            LoadName = model.Name;
             City = model.City;
             Lane = model.Lane;
             Rate = model.Rate;
@@ -20,6 +21,7 @@ namespace LoadBoardApp.ViewModels.Common
         }
 
         public int Id { get; }
+        public string LoadName { get; }
         public string City { get; }
         public string Lane { get; }
         public string Rate { get; }
