@@ -14,17 +14,8 @@ namespace LoadBoardApp.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync(int page = 1)
         {
-            var itemsPerPage = _loadService.ItemsPerPage();
-            var totalItems = _loadService.GetTotalLoadsCount();
-            var totalPages = (int)Math.Ceiling((double)totalItems / itemsPerPage);
+            var model = _loadService.GetLoads(page);
 
-            var model = new LoadsListingViewModel
-            { 
-                Items = _loadService.GetLoads(page, itemsPerPage),
-                CurrentPage = page,
-                TotalPages = totalPages,
-                ItemsPerPage = itemsPerPage
-            };
             return View(model);        
         }
     }

@@ -5,6 +5,7 @@ using LoadBoardApp.ViewModels.Extensions;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.Web;
 using Umbraco.Cms.Web.Common.UmbracoContext;
+using static Umbraco.Cms.Core.Constants.HttpContext;
 
 namespace LoadBoardApp.Services
 {
@@ -21,13 +22,22 @@ namespace LoadBoardApp.Services
             _home = _umbracoContext.Content?.GetAtRoot().FirstOrDefault();
         }
 
-        public IReadOnlyList<LoadViewModel> GetLoads(int currentPage, int itemsPerPage)
+        public LoadsListingViewModel GetLoads(int currentPage)
         {
-            var items = _home.Children.OfType<Load>().Skip(itemsPerPage * (currentPage - 1)).Take(itemsPerPage);
-            return items.ToViewModel();
+            var items = _home.Children.OfType<Load>().Skip(ItemsPerPage() * (currentPage - 1)).Take(ItemsPerPage());
+            var totalPages = (int)Math.Ceiling((double)GetTotalLoadsCount() / ItemsPerPage());
+
+            var model = new LoadsListingViewModel
+            {
+                Items = items.ToViewModel(),
+                CurrentPage = currentPage,
+                TotalPages = totalPages,
+                ItemsPerPage = ItemsPerPage(),
+            };
+            return model;
         }
 
-        public (IReadOnlyList<LoadViewModel> items, int totalItems) SearchLoadsByName(string search, int currentPage, int itemsPerPage)
+        public LoadsListingViewModel SearchLoadsByName(string search, int currentPage)
         {
             var query = _home.Children.OfType<Load>()
                 .Where(load => string.IsNullOrEmpty(search) ||
@@ -36,11 +46,22 @@ namespace LoadBoardApp.Services
                 load.Broker.Contains(search, StringComparison.OrdinalIgnoreCase));
 
             var totalItems = query.Count();
-            var paginatedItems = query.Skip(itemsPerPage * (currentPage - 1))
-                                        .Take(itemsPerPage)
+            var totalPages = (int)Math.Ceiling((double)totalItems / ItemsPerPage());
+
+            var paginatedItems = query.Skip(ItemsPerPage() * (currentPage - 1))
+                                        .Take(ItemsPerPage())
                                         .ToViewModel();
 
-            return (paginatedItems, totalItems);
+            var model = new LoadsListingViewModel
+            {
+                Items = paginatedItems,
+                CurrentPage = currentPage,
+                TotalPages = totalPages,
+                ItemsPerPage = ItemsPerPage(),
+                SearchTerm = search
+            };
+
+            return model;
         }
 
         public int GetTotalLoadsCount()

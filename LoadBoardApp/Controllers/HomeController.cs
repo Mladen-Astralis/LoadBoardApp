@@ -31,24 +31,13 @@ namespace LoadBoardApp.Controllers
         [IgnoreAntiforgeryToken]
         public IActionResult GetPaginatedLoads(string search, int page = 1)
         {
-            var itemsPerPage = _loadService.ItemsPerPage();
-            var items = _loadService.GetLoads(page, itemsPerPage);
-            var totalItems = _loadService.GetTotalLoadsCount();
+            var model = _loadService.GetLoads(page);
 
             if (search != null)
             {
-                (items, totalItems) = _loadService.SearchLoadsByName(search, page, itemsPerPage);
+                model = _loadService.SearchLoadsByName(search, page);
             }
-            var totalPages = (int)Math.Ceiling((double)totalItems / itemsPerPage);
-
-            var model = new LoadsListingViewModel
-            {
-                Items = items,
-                CurrentPage = page,
-                TotalPages = totalPages,
-                ItemsPerPage = itemsPerPage,
-                SearchTerm = search
-            };
+          
             return PartialView("Items/_Loads", model);
         }
 
