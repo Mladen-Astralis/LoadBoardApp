@@ -32,6 +32,7 @@ namespace LoadBoardApp.Services
             var query = _home.Children.OfType<Load>()
                 .Where(load => string.IsNullOrEmpty(search) ||
                 load.Name.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                load.City.Contains(search, StringComparison.OrdinalIgnoreCase) ||
                 load.Broker.Contains(search, StringComparison.OrdinalIgnoreCase));
 
             var totalItems = query.Count();
