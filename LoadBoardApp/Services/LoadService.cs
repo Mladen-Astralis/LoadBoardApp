@@ -21,30 +21,42 @@ namespace LoadBoardApp.Services
             _home = _umbracoContext.Content?.GetAtRoot().FirstOrDefault();
         }
 
-      public IReadOnlyList<LoadViewModel> GetLoads(int currentPage, int itemsPerPage)
-      {
-        var loads = _home.Children.OfType<Load>().Skip(itemsPerPage * (currentPage - 1)).Take(itemsPerPage);
-        return loads.ToViewModel();
-      }
+        public IReadOnlyList<LoadViewModel> GetLoads(int currentPage, int itemsPerPage)
+        {
+            var items = _home.Children.OfType<Load>().Skip(itemsPerPage * (currentPage - 1)).Take(itemsPerPage);
+            return items.ToViewModel();
+        }
 
-      public int GetTotalLoadsCount()
-      {
-        if (_home == null) return 0;
-        return _home.Children.OfType<Load>().Count();
-      }
+        public (IReadOnlyList<LoadViewModel> items, int totalItems) SearchLoadsByName(string search, int currentPage, int itemsPerPage)
+        {
+            var query = _home.Children.OfType<Load>().Where(l => string.IsNullOrEmpty(search) || l.Name.Contains(search, StringComparison.OrdinalIgnoreCase));
 
-      public LoadViewModel GetPopUpItemById(int loadId)
-      {
+            var totalItems = query.Count();
+            var paginatedItems = query.Skip(itemsPerPage * (currentPage - 1))
+                                        .Take(itemsPerPage)
+                                        .ToViewModel();
+
+            return (paginatedItems, totalItems);
+        }
+
+        public int GetTotalLoadsCount()
+        {
+            if (_home == null) return 0;
+            return _home.Children.OfType<Load>().Count();
+        }
+
+        public LoadViewModel GetPopUpItemById(int loadId)
+        {
             var content = _umbracoContext.Content?.GetById(loadId);
             var item = (Load)content;
             return new LoadViewModel(item);
-      }
+        }
 
-      public int ItemsPerPage()
-      {
+        public int ItemsPerPage()
+        {
             var itemsPerPage = _home?.Value<int>("loadsNumber");
             return (int)itemsPerPage;
-      }
+        }
 
     }
 }

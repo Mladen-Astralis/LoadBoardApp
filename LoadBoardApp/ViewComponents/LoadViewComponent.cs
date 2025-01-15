@@ -12,7 +12,7 @@ namespace LoadBoardApp.ViewComponents
         {
             _loadService = loadService;
         }
-        public async Task<IViewComponentResult> InvokeAsync(int page)
+        public async Task<IViewComponentResult> InvokeAsync(int page = 1)
         {
             var itemsPerPage = _loadService.ItemsPerPage();
             var totalItems = _loadService.GetTotalLoadsCount();

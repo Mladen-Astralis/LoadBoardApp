@@ -14,20 +14,18 @@
         });
     });
 
-
-    $('#search-form').on('submit', function (e) {
+    $('body').delegate('#search-form', 'submit', function (e) {
         e.preventDefault();
 
-        var url = '/umbraco/surface/home/searchloads';
-
+        var data = $(this).serialize();
+        var url = '/umbraco/surface/home/getpaginatedloads';
         $.ajax({
             url: url,
             type: 'GET',
+            data: data,
             success: function (response) {
-                
-            },
-            error: function () {
-                
+                $("#load-container").empty();
+                $("#load-container").append(response);
             }
         });
     });

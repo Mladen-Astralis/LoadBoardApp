@@ -1,5 +1,6 @@
 ﻿using LoadBoardApp.Services.Interface;
 using LoadBoardApp.ViewModels.Common;
+using MailKit.Search;
 using Microsoft.AspNetCore.Mvc;
 using Umbraco.Cms.Core.Cache;
 using Umbraco.Cms.Core.Logging;
@@ -28,25 +29,27 @@ namespace LoadBoardApp.Controllers
 
         [HttpGet]
         [IgnoreAntiforgeryToken]
-        public IActionResult GetPaginatedLoads(int page)
+        public IActionResult GetPaginatedLoads(string search, int page = 1)
         {
             var itemsPerPage = _loadService.ItemsPerPage();
+            var items = _loadService.GetLoads(page, itemsPerPage);
             var totalItems = _loadService.GetTotalLoadsCount();
+
+            if (search != null)
+            {
+                (items, totalItems) = _loadService.SearchLoadsByName(search, page, itemsPerPage);
+            }
             var totalPages = (int)Math.Ceiling((double)totalItems / itemsPerPage);
 
             var model = new LoadsListingViewModel
             {
-                Items = _loadService.GetLoads(page, itemsPerPage),
+                Items = items,
                 CurrentPage = page,
                 TotalPages = totalPages,
-                ItemsPerPage = itemsPerPage
+                ItemsPerPage = itemsPerPage,
+                SearchTerm = search
             };
             return PartialView("Items/_Loads", model);
-        }
-
-        public IActionResult SearchLoads(string search, int page)
-        {
-            return PartialView("Items/_Loads");
         }
 
         [HttpGet]
