@@ -29,7 +29,10 @@ namespace LoadBoardApp.Services
 
         public (IReadOnlyList<LoadViewModel> items, int totalItems) SearchLoadsByName(string search, int currentPage, int itemsPerPage)
         {
-            var query = _home.Children.OfType<Load>().Where(l => string.IsNullOrEmpty(search) || l.Name.Contains(search, StringComparison.OrdinalIgnoreCase));
+            var query = _home.Children.OfType<Load>()
+                .Where(load => string.IsNullOrEmpty(search) ||
+                load.Name.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                load.Broker.Contains(search, StringComparison.OrdinalIgnoreCase));
 
             var totalItems = query.Count();
             var paginatedItems = query.Skip(itemsPerPage * (currentPage - 1))
