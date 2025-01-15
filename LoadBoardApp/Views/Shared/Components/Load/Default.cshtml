@@ -19,21 +19,33 @@
                 @{
                     int numIndex = (Model.CurrentPage - 1) * Model.ItemsPerPage + 1;
                 }
-                @foreach(var load in Model.Items)
+                @if (Model.Items.Any())
                 {
-                <tr>
-                    <th scope="row">@numIndex</th>
-                    <td>@load.LoadName</td>
-                    <td>@load.City</td>
-                    <td>@load.Lane</td>
-                    <td>@load.Rate</td>
-                    <td>@load.Miles</td>
-                    <td>@load.Broker</td>
-                    <td>@load.Contact</td>
-                    <td><a href="/load/details/@load.Id" data-popup-open="popup" class="btn btn-outline-secondary btn-sm">View More</a></td>
-                    @{ numIndex++; }
-                </tr>
+                    @foreach (var load in Model.Items)
+                    {
+                        <tr>
+                            <th scope="row">@numIndex</th>
+                            <td>@load.LoadName</td>
+                            <td>@load.City</td>
+                            <td>@load.Lane</td>
+                            <td>@load.Rate</td>
+                            <td>@load.Miles</td>
+                            <td>@load.Broker</td>
+                            <td>@load.Contact</td>
+                            <td><a href="/load/details/@load.Id" data-popup-open="popup" class="btn btn-outline-secondary btn-sm">View More</a></td>
+                            @{
+                                numIndex++;
+                            }
+                        </tr>
+                    }
                 }
+                else
+                {
+                    <tr class="text-center">
+                        <td colspan="100%">No Results!</td>
+                    </tr>
+                }
+
             </tbody>
         </table>
         <div>
