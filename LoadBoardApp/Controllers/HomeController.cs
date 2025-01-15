@@ -41,7 +41,12 @@ namespace LoadBoardApp.Controllers
                 TotalPages = totalPages,
                 ItemsPerPage = itemsPerPage
             };
-            return PartialView("Items/_LoadPagination", model);
+            return PartialView("Items/_Loads", model);
+        }
+
+        public IActionResult SearchLoads(string search, int page)
+        {
+            return PartialView("Items/_Loads");
         }
 
         [HttpGet]
@@ -51,6 +56,6 @@ namespace LoadBoardApp.Controllers
             var item = _loadService.GetPopUpItemById(loadId);
             return PartialView("PopUp/_PopUpView", item);
         }
-
+      
     }
 }
