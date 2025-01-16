@@ -1,4 +1,5 @@
 ﻿using LoadBoardApp.PublishedContentModels.Models;
+using Umbraco.Cms.Core.Media.EmbedProviders;
 
 namespace LoadBoardApp.ViewModels.Common
 {
@@ -17,6 +18,7 @@ namespace LoadBoardApp.ViewModels.Common
             Commodity = model.Commodity;
             Latitude = model.Latitude;
             Longitude = model.Longitude;
+            CreateDate = model.UpdateDate;
         }
 
         public int Id { get; }
@@ -30,5 +32,6 @@ namespace LoadBoardApp.ViewModels.Common
         public string Commodity { get; }
         public string Latitude { get; }
         public string Longitude { get; }
+        public DateTime CreateDate { get; }
     }
 }
