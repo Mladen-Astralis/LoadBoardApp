@@ -2,6 +2,7 @@
 using LoadBoardApp.Services.Interface;
 using LoadBoardApp.ViewModels.Common;
 using LoadBoardApp.ViewModels.Extensions;
+using Lucene.Net.Index;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.Web;
 using Umbraco.Cms.Web.Common.UmbracoContext;
@@ -27,16 +28,9 @@ namespace LoadBoardApp.Services
             var items = _home.Children.OfType<Load>().Skip(ItemsPerPage() * (currentPage - 1)).Take(ItemsPerPage());
             var totalPages = (int)Math.Ceiling((double)GetTotalLoadsCount() / ItemsPerPage());
 
-            var model = new LoadsListingViewModel
-            {
-                Items = items.ToViewModel(),
-                CurrentPage = currentPage,
-                TotalPages = totalPages,
-                ItemsPerPage = ItemsPerPage(),
-            };
-            return model;
+            return LoadsListing(items.ToViewModel(), currentPage, totalPages, ItemsPerPage());
         }
-
+     
         public LoadsListingViewModel SearchLoadsByName(string search, int currentPage)
         {
             var query = _home.Children.OfType<Load>()
@@ -51,16 +45,19 @@ namespace LoadBoardApp.Services
             var paginatedItems = query.Skip(ItemsPerPage() * (currentPage - 1))
                                         .Take(ItemsPerPage())
                                         .ToViewModel();
+    
+            return LoadsListing(paginatedItems, currentPage, totalPages, ItemsPerPage());
+        }
 
+        public LoadsListingViewModel LoadsListing(IReadOnlyList<LoadViewModel> items, int currentPage, int totalPages, int itemsPerPage)
+        {
             var model = new LoadsListingViewModel
             {
-                Items = paginatedItems,
+                Items = items,
                 CurrentPage = currentPage,
                 TotalPages = totalPages,
-                ItemsPerPage = ItemsPerPage(),
-                SearchTerm = search
+                ItemsPerPage = itemsPerPage,
             };
-
             return model;
         }
 
