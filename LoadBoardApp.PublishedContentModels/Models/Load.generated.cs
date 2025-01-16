@@ -58,7 +58,7 @@ namespace LoadBoardApp.PublishedContentModels.Models
 		public virtual string Broker => this.Value<string>(_publishedValueFallback, "broker");
 
 		///<summary>
-		/// City
+		/// Pick Up City
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.5.2+3431f76")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
@@ -82,12 +82,12 @@ namespace LoadBoardApp.PublishedContentModels.Models
 		public virtual string Contact => this.Value<string>(_publishedValueFallback, "contact");
 
 		///<summary>
-		/// Lane
+		/// Delivery City
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.5.2+3431f76")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("lane")]
-		public virtual string Lane => this.Value<string>(_publishedValueFallback, "lane");
+		[ImplementPropertyType("deliveryCity")]
+		public virtual string DeliveryCity => this.Value<string>(_publishedValueFallback, "deliveryCity");
 
 		///<summary>
 		/// Latitude

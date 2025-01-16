@@ -4,13 +4,11 @@
     <thead class="table-dark">
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Load Name</th>
-            <th scope="col">City</th>
-            <th scope="col">Lane</th>
+            <th scope="col">Pick Up City</th>
+            <th scope="col">Delivery City</th>
             <th scope="col">Rate</th>
             <th scope="col">Miles</th>
             <th scope="col">Broker</th>
-            <th scope="col">Contact</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
@@ -24,13 +22,11 @@
             {
                 <tr>
                     <th scope="row">@numIndex</th>
-                    <td>@load.LoadName</td>
                     <td>@load.City</td>
-                    <td>@load.Lane</td>
+                    <td>@load.DeliveryCity</td>
                     <td>@load.Rate</td>
                     <td>@load.Miles</td>
                     <td>@load.Broker</td>
-                    <td>@load.Contact</td>
                     <td><a href="/load/details/@load.Id" data-popup-open="popup" class="btn btn-outline-secondary btn-sm">View More</a></td>
                     @{
                         numIndex++;

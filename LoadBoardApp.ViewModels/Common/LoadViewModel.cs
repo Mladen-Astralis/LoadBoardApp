@@ -9,7 +9,7 @@ namespace LoadBoardApp.ViewModels.Common
             Id = model.Id;
             LoadName = model.Name;
             City = model.City;
-            Lane = model.Lane;
+            DeliveryCity = model.DeliveryCity;
             Rate = model.Rate;
             Miles = model.Miles;
             Broker = model.Broker;
@@ -22,7 +22,7 @@ namespace LoadBoardApp.ViewModels.Common
         public int Id { get; }
         public string LoadName { get; }
         public string City { get; }
-        public string Lane { get; }
+        public string DeliveryCity { get; }
         public string Rate { get; }
         public string Miles { get; }
         public string Broker { get; }

@@ -1,4 +1,5 @@
-﻿using LoadBoardApp.Services.Interface;
+﻿using LoadBoardApp.Services;
+using LoadBoardApp.Services.Interface;
 using LoadBoardApp.ViewModels.Common;
 using MailKit.Search;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +18,7 @@ namespace LoadBoardApp.Controllers
         private readonly ILoadService _loadService;
 
         public HomeController(IUmbracoContextAccessor umbracoContextAccessor, 
-            IUmbracoDatabaseFactory databaseFactory, 
-            ServiceContext services, AppCaches appCaches, 
-            IProfilingLogger profilingLogger, 
-            IPublishedUrlProvider publishedUrlProvider,
+            IUmbracoDatabaseFactory databaseFactory, ServiceContext services, AppCaches appCaches, IProfilingLogger profilingLogger, IPublishedUrlProvider publishedUrlProvider,
             ILoadService loadService) 
             : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
         {
