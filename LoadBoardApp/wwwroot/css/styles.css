@@ -1,7 +1,9 @@
 ﻿.table-responsive {
     border-radius: 3px;
 }
-
+.table-responsive td:last-child {
+    width: 100px;
+}
 .popup {
     width: 100%;
     height: 100%;
@@ -11,7 +13,6 @@
     background: rgba(0, 0, 0, 0.75);
     z-index: 999;
 }
-
 .popup-inner {
     width: 90%;
     height: 90%;
@@ -25,21 +26,17 @@
     border-radius: 3px;
     background: #fff;
 }
-
 .popup-content {
     height: 100%;
-    padding: 20px;
+    padding: 30px;
     overflow-y: auto;
 }
-
 .popup-content h5 {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
-
 .popup-content ul li {
     padding-bottom: 5px;
 }
-
 .popup-close {
     width: 30px;
     height: 30px;
@@ -60,13 +57,11 @@
     line-height: 100%;
     color: #fff;
 }
-
 .popup-close:hover {
     background: #000;
     text-decoration: none;
     color: #fff;
 }
-
 #map {
     width: 100%;
     height: 500px;
