@@ -2,11 +2,8 @@
 using LoadBoardApp.Services.Interface;
 using LoadBoardApp.ViewModels.Common;
 using LoadBoardApp.ViewModels.Extensions;
-using Lucene.Net.Index;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.Web;
-using Umbraco.Cms.Web.Common.UmbracoContext;
-using static Umbraco.Cms.Core.Constants.HttpContext;
 
 namespace LoadBoardApp.Services
 {

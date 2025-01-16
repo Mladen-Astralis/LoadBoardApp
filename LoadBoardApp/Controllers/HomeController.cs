@@ -1,7 +1,4 @@
-﻿using LoadBoardApp.Services;
-using LoadBoardApp.Services.Interface;
-using LoadBoardApp.ViewModels.Common;
-using MailKit.Search;
+﻿using LoadBoardApp.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Umbraco.Cms.Core.Cache;
 using Umbraco.Cms.Core.Logging;
