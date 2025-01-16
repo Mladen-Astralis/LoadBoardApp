@@ -79,7 +79,7 @@ namespace LoadBoardApp.PublishedContentModels.Models
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.5.2+3431f76")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("contact")]
-		public virtual string Contact => this.Value<string>(_publishedValueFallback, "contact");
+		public virtual global::System.Collections.Generic.IEnumerable<string> Contact => this.Value<global::System.Collections.Generic.IEnumerable<string>>(_publishedValueFallback, "contact");
 
 		///<summary>
 		/// Delivery City

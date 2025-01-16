@@ -18,7 +18,7 @@ namespace LoadBoardApp.ViewModels.Common
             Commodity = model.Commodity;
             Latitude = model.Latitude;
             Longitude = model.Longitude;
-            CreateDate = model.UpdateDate;
+            UpdateDate = model.UpdateDate;
         }
 
         public int Id { get; }
@@ -28,10 +28,10 @@ namespace LoadBoardApp.ViewModels.Common
         public string Rate { get; }
         public string Miles { get; }
         public string Broker { get; }
-        public string Contact { get; }
+        public IEnumerable<string> Contact { get; }
         public string Commodity { get; }
         public string Latitude { get; }
         public string Longitude { get; }
-        public DateTime CreateDate { get; }
+        public DateTime UpdateDate { get; }
     }
 }

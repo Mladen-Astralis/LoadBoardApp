@@ -11,7 +11,14 @@
             <li>Rate: @Model.Rate</li>
             <li>Miles: @Model.Miles</li>
             <li>Broker: @Model.Broker</li>
-            <li>Contact: @Model.Contact</li>
+            <li>Contact:
+                <ul>
+                    @foreach (var contact in @Model.Contact)
+                    {
+                        <li>@contact</li>
+                    }
+                </ul>
+            </li>
             <li>Commodity: @Model.Commodity</li>
           </ul>
 

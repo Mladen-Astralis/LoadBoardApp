@@ -25,7 +25,7 @@ namespace LoadBoardApp.Services
 
         public LoadsListingViewModel GetLoads(int currentPage)
         {
-            var items = _home.Children.OfType<Load>().Skip(ItemsPerPage() * (currentPage - 1)).Take(ItemsPerPage());
+            var items = _home.Children.OfType<Load>().OrderByDescending(item => item.UpdateDate).Skip(ItemsPerPage() * (currentPage - 1)).Take(ItemsPerPage());
             var totalPages = (int)Math.Ceiling((double)GetTotalLoadsCount() / ItemsPerPage());
 
             return LoadsListing(items.ToViewModel(), currentPage, totalPages, ItemsPerPage());
@@ -42,7 +42,7 @@ namespace LoadBoardApp.Services
             var totalItems = query.Count();
             var totalPages = (int)Math.Ceiling((double)totalItems / ItemsPerPage());
 
-            var paginatedItems = query.Skip(ItemsPerPage() * (currentPage - 1))
+            var paginatedItems = query.OrderByDescending(item => item.UpdateDate).Skip(ItemsPerPage() * (currentPage - 1))
                                         .Take(ItemsPerPage())
                                         .ToViewModel();
     
