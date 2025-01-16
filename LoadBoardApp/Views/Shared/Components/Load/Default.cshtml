@@ -23,11 +23,11 @@
                     {
                         <tr>
                             <th scope="row">@numIndex</th>
-                            <td>@load.City</td>
-                            <td>@load.DeliveryCity</td>
-                            <td>@load.Rate</td>
-                            <td>@load.Miles</td>
-                            <td>@load.Broker</td>
+                            <td>@load.City.Truncate(20)</td>
+                            <td>@load.DeliveryCity.Truncate(20)</td>
+                            <td>@load.Rate.Truncate(20)</td>
+                            <td>@load.Miles.Truncate(20)</td>
+                            <td>@load.Broker.Truncate(20)</td>
                             <td><a href="/load/details/@load.Id" data-popup-open="popup" class="btn btn-outline-secondary btn-sm">View More</a></td>
                             @{
                                 numIndex++;

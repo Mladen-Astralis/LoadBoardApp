@@ -28,6 +28,14 @@
     overflow-y: auto;
 }
 
+.popup-content h5 {
+    margin-bottom: 10px;
+}
+
+.popup-content ul li {
+    padding-bottom: 5px;
+}
+
 .popup-close {
     width: 30px;
     height: 30px;

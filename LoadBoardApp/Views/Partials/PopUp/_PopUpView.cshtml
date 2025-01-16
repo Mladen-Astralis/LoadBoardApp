@@ -5,21 +5,21 @@
         <div class="popup-close" data-popup-close="popup">x</div>
         <div class="popup-content">
           <h5>@Model.LoadName</h5>
-          <ul>
-            <li>Pick Up City: @Model.City</li>
-            <li>Delivery City: @Model.DeliveryCity</li>
-            <li>Rate: @Model.Rate</li>
-            <li>Miles: @Model.Miles</li>
-            <li>Broker: @Model.Broker</li>
-            <li>Contact:
-                <ul>
-                    @foreach (var contact in @Model.Contact)
-                    {
-                        <li>@contact</li>
-                    }
-                </ul>
-            </li>
-            <li>Commodity: @Model.Commodity</li>
+          <ul class="list-unstyled">
+                <li><b>Pick Up City:</b> @Model.City</li>
+                <li><b>Delivery City:</b> @Model.DeliveryCity</li>
+                <li><b>Rate:</b> @Model.Rate</li>
+                <li><b>Miles:</b> @Model.Miles</li>
+                <li><b>Broker:</b> @Model.Broker</li>
+                <li><b>Contact:</b>
+                    <ul>
+                        @foreach (var contact in @Model.Contact)
+                        {
+                            <li>@contact</li>
+                        }
+                    </ul>
+                </li>
+                <li><b>Commodity:</b> @Model.Commodity</li>
           </ul>
 
           <div id="map"></div>
