@@ -14,6 +14,7 @@ builder.CreateUmbracoBuilder()
     .Build();
 
 builder.Services.AddTransient<ILoadService, LoadService>();
+builder.Services.AddTransient<ISearchService, SearchService>();
 
 WebApplication app = builder.Build();
 

@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\" />
+    <ProjectReference Include="..\LoadBoardApp.Common\LoadBoardApp.Common.csproj" />
+    <ProjectReference Include="..\LoadBoardApp.PublishedContentModels\LoadBoardApp.PublishedContentModels.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LoadBoardApp.Common\LoadBoardApp.Common.csproj" />
-    <ProjectReference Include="..\LoadBoardApp.PublishedContentModels\LoadBoardApp.PublishedContentModels.csproj" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
 
 </Project>

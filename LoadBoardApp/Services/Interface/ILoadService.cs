@@ -6,8 +6,6 @@ namespace LoadBoardApp.Services.Interface
     {
         LoadsListingViewModel GetLoads(int curentPage);
         LoadsListingViewModel SearchLoadsByName(string search, int currentPage);
-        int GetTotalLoadsCount();
-        int ItemsPerPage();
         LoadViewModel GetPopUpItemById(int loadId);
     }
 }

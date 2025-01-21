@@ -1,4 +1,5 @@
-﻿using LoadBoardApp.PublishedContentModels.Models;
+﻿using LoadBoardApp.Common;
+using LoadBoardApp.PublishedContentModels.Models;
 using LoadBoardApp.Services.Interface;
 using LoadBoardApp.ViewModels.Common;
 using LoadBoardApp.ViewModels.Extensions;
@@ -17,64 +18,50 @@ namespace LoadBoardApp.Services
         {
             _contextAccessor = contextAccessor;
             _umbracoContext = _contextAccessor.GetRequiredUmbracoContext();
-            _home = _umbracoContext.Content?.GetAtRoot().FirstOrDefault();
+            _home = _umbracoContext.Content?.GetAtRoot()?.OfType<Home>().FirstOrDefault();
         }
 
         public LoadsListingViewModel GetLoads(int currentPage)
         {
-            var items = _home.Children.OfType<Load>().OrderByDescending(item => item.UpdateDate).Skip(ItemsPerPage() * (currentPage - 1)).Take(ItemsPerPage());
-            var totalPages = (int)Math.Ceiling((double)GetTotalLoadsCount() / ItemsPerPage());
+            var home = _home as Home;
+            var itemsPerPage = home?.LoadsNumber ?? Constants.ItemsPerPage.ItemsNumber;
 
-            return LoadsListing(items.ToViewModel(), currentPage, totalPages, ItemsPerPage());
+            var getTotalLoadsCount = _home.Children?.OfType<Load>()?.Count() ?? 0;
+            var items = _home.Children?.OfType<Load>().OrderByDescending(item => item.UpdateDate).Skip(itemsPerPage * (currentPage - 1)).Take(itemsPerPage);
+            var totalPages = (int)Math.Ceiling((double)getTotalLoadsCount / itemsPerPage);
+
+            return new LoadsListingViewModel(items.ToViewModel(), currentPage, totalPages, itemsPerPage);
         }
      
         public LoadsListingViewModel SearchLoadsByName(string search, int currentPage)
         {
-            var query = _home.Children.OfType<Load>()
-                .Where(load => string.IsNullOrEmpty(search) ||
-                load.City.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+            var home = _home as Home;
+            var itemsPerPage = home?.LoadsNumber ?? Constants.ItemsPerPage.ItemsNumber;
+
+            var query = _home.Children?.OfType<Load>()?
+                .Where(load => load.City.Contains(search, StringComparison.OrdinalIgnoreCase) ||
                 load.DeliveryCity.Contains(search, StringComparison.OrdinalIgnoreCase) ||
                 load.Broker.Contains(search, StringComparison.OrdinalIgnoreCase));
 
             var totalItems = query.Count();
-            var totalPages = (int)Math.Ceiling((double)totalItems / ItemsPerPage());
+            var totalPages = (int)Math.Ceiling((double)totalItems / itemsPerPage);
 
-            var paginatedItems = query.OrderByDescending(item => item.UpdateDate).Skip(ItemsPerPage() * (currentPage - 1))
-                                        .Take(ItemsPerPage())
+            var paginatedItems = query.OrderByDescending(item => item.UpdateDate).Skip(itemsPerPage * (currentPage - 1))
+                                        .Take(itemsPerPage)
                                         .ToViewModel();
     
-            return LoadsListing(paginatedItems, currentPage, totalPages, ItemsPerPage());
-        }
-
-        public LoadsListingViewModel LoadsListing(IReadOnlyList<LoadViewModel> items, int currentPage, int totalPages, int itemsPerPage)
-        {
-            var model = new LoadsListingViewModel
-            {
-                Items = items,
-                CurrentPage = currentPage,
-                TotalPages = totalPages,
-                ItemsPerPage = itemsPerPage,
-            };
-            return model;
-        }
-
-        public int GetTotalLoadsCount()
-        {
-            if (_home == null) return 0;
-            return _home.Children.OfType<Load>().Count();
+            return new LoadsListingViewModel(paginatedItems, currentPage, totalPages, itemsPerPage);
         }
 
         public LoadViewModel GetPopUpItemById(int loadId)
         {
             var content = _umbracoContext.Content?.GetById(loadId);
-            var item = (Load)content;
+            var item = content as Load;
+            if (item == null)
+            {
+                throw new ArgumentException($"Content with ID {loadId} is not of type Load or does not exist.");
+            }
             return new LoadViewModel(item);
-        }
-
-        public int ItemsPerPage()
-        {
-            var itemsPerPage = _home?.Value<int>("loadsNumber");
-            return (int)itemsPerPage;
         }
 
     }

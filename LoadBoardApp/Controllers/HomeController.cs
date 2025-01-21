@@ -13,13 +13,16 @@ namespace LoadBoardApp.Controllers
     public class HomeController : SurfaceController
     {
         private readonly ILoadService _loadService;
+        private readonly ISearchService _searchService;
 
         public HomeController(IUmbracoContextAccessor umbracoContextAccessor, 
             IUmbracoDatabaseFactory databaseFactory, ServiceContext services, AppCaches appCaches, IProfilingLogger profilingLogger, IPublishedUrlProvider publishedUrlProvider,
-            ILoadService loadService) 
+            ILoadService loadService,
+            ISearchService searchService) 
             : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
         {
             _loadService = loadService;
+            _searchService = searchService;
         }
 
         [HttpGet]
@@ -28,11 +31,16 @@ namespace LoadBoardApp.Controllers
         {
             var model = _loadService.GetLoads(page);
 
-            if (search != null)
+            if (!string.IsNullOrEmpty(search))
             {
-                model = _loadService.SearchLoadsByName(search, page);
+                model = _searchService.Search(search, page);
             }
-          
+
+            //if (!string.IsNullOrEmpty(search))
+            //{
+            //    model = _loadService.SearchLoadsByName(search, page);
+            //}
+
             return PartialView("Items/_Loads", model);
         }
 
@@ -40,6 +48,8 @@ namespace LoadBoardApp.Controllers
         [IgnoreAntiforgeryToken]
         public IActionResult GetPopUpItem(int loadId)
         {
+            if (loadId <= 0) throw new ArgumentOutOfRangeException(nameof(loadId));
+
             var item = _loadService.GetPopUpItemById(loadId);
             return PartialView("PopUp/_PopUpView", item);
         }
