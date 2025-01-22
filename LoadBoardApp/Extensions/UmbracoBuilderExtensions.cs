@@ -1,5 +1,6 @@
 ﻿using LoadBoardApp.ContentFinders;
-using Umbraco.Cms.Core.Routing;
+using LoadBoardApp.Services;
+using LoadBoardApp.Services.Interface;
 
 namespace LoadBoardApp.Extensions
 {
@@ -10,6 +11,14 @@ namespace LoadBoardApp.Extensions
             builder.ContentFinders().Append<LoadDetailsContentFinder>();
            
             return builder;
+        }
+
+        public static IServiceCollection AddServices(this IServiceCollection services)
+        {
+            services.AddTransient<ILoadService, LoadService>();
+            services.AddTransient<ISearchService, SearchService>();
+
+            return services;
         }
     }
 }
