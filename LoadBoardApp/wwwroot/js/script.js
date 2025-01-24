@@ -18,17 +18,21 @@
 
     $('body').delegate('#search-form', 'submit', function (e) {
         e.preventDefault();
-        var data = $(this).serialize();
-        var url = '/umbraco/surface/home/getpaginatedloads';
-        $.ajax({
-            url: url,
-            type: 'GET',
-            data: data,
-            success: function (response) {
-                $("#load-container").empty();
-                $("#load-container").append(response);
-            }
-        });
+        var searchValue = $("input[name=search]").val();
+        
+        if (searchValue.length > 2) {
+            var data = $(this).serialize();
+            var url = '/umbraco/surface/home/getpaginatedloads';
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: data,
+                success: function (response) {
+                    $("#load-container").empty();
+                    $("#load-container").append(response);
+                }
+            });
+        }
     });
 
 });
