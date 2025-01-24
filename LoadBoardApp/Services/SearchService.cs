@@ -3,6 +3,7 @@ using Examine;
 using Examine.Lucene.Search;
 using Examine.Search;
 using LoadBoardApp.Common;
+using LoadBoardApp.Common.Extensions;
 using LoadBoardApp.PublishedContentModels.Models;
 using LoadBoardApp.Services.Interface;
 using LoadBoardApp.ViewModels.Common;
@@ -15,6 +16,8 @@ namespace LoadBoardApp.Services
 {
     public class SearchService : ISearchService
     {
+        private const int HIGH_BOOST_VALUE = 10;
+
         private readonly IExamineManager _examineManager;
         private readonly string[] _searchFields;
         private readonly ISearcher _searcher;
@@ -77,17 +80,24 @@ namespace LoadBoardApp.Services
 
         private string BuildQuery(string query, string searchType, BooleanOperation searchOperation)
         {
-            const int highBoostValue = 4;
-
-            query = query.Trim('\"', '\'');
-            IExamineValue wholeExamineValue = query.Boost(highBoostValue);
-            var words = query.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            IExamineValue[] wordsExamineValues = words.Select(w => w.Escape()).ToArray();
-
+            query = query.ReplaceSpecialCharactersWithWhitespace().Trim('\"', '\'');
             LuceneSearchQuery luceneQuery = CreateLuceneSearchQuery(searchType, searchOperation);
-            luceneQuery.Field("__NodeTypeAlias", nameof(Load)).And().Group(nestedQuery => nestedQuery.GroupedOr(_searchFields, wholeExamineValue).Or().GroupedOr(_searchFields, wordsExamineValues));
 
-                     
+            if (query.Length <= 2)
+            {
+                 luceneQuery.Field("__NodeTypeAlias", nameof(Load));
+            }
+            else
+            {
+                IExamineValue wholeExamineValue = query.Boost(HIGH_BOOST_VALUE);
+                var words = query.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                IExamineValue[] wordsExamineValues = words.Select(w => w.Escape()).ToArray();
+                IExamineValue[] wildCardValues = words.Select(w => w.MultipleCharacterWildcard()).ToArray();
+
+                luceneQuery.Field("__NodeTypeAlias", nameof(Load)).And().Group(nestedQuery => nestedQuery.GroupedOr(_searchFields, wholeExamineValue).Or().GroupedOr(_searchFields, wordsExamineValues).Or().GroupedOr(_searchFields, wildCardValues));
+            }
+
+
             return luceneQuery.Query.ToString();
         }
 

@@ -31,7 +31,7 @@ namespace LoadBoardApp.Controllers
         {
             var model = _loadService.GetLoads(page);
 
-            if (!string.IsNullOrEmpty(search))
+            if (!string.IsNullOrEmpty(search) && search.Length > 2)
             {
                 model = _searchService.Search(search, page);
             }
